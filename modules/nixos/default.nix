@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ./system
+    ./kde.nix
+    ./cachyos.nix
   ];
 }

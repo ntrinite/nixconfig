@@ -6,12 +6,12 @@
 }:
 
 let
-  cfg = config.systemSettings.kde;
+  cfg = config.dex.kde;
   inherit (lib.options) mkEnableOption;
   inherit (lib) mkIf;
 in
 {
-  options.systemSettings.kde = {
+  options.dex.kde = {
     enable = mkEnableOption "Enable KDE Plasma Desktop Environment";
 
   };

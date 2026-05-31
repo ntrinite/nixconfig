@@ -6,11 +6,11 @@
 }:
 
 let
-  cfg = config.systemSettings.cachy;
+  cfg = config.dex.cachy;
 in
 {
   options = {
-    systemSettings.cachy = {
+    dex.cachy = {
       enable = lib.mkEnableOption "Enable cachyos kernel";
       variant = lib.mkOption {
         default = null;

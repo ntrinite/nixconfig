@@ -6,13 +6,13 @@
 }:
 
 let
-  cfg = config.homeMgr.discord;
+  cfg = config.dex.discord;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib) mkIf;
   inherit (lib.types) nullOr package;
 in
 {
-  options.homeMgr.discord = {
+  options.dex.discord = {
     enable = mkEnableOption "Enable Discord";
     package = mkOption {
       type = nullOr package;
@@ -25,9 +25,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    # home.packages = with pkgs; [
-    #   discord
-    # ];
     programs.discord = {
       enable = true;
       package = cfg.package;

@@ -21,32 +21,64 @@
       nix-cachyos-kernel,
       ...
     }@inputs:
-    {
+    let
+      lib = nixpkgs.lib;
+      systems = [ "x86_64-linux" ];
+      forAllSystems = f: lib.genAttrs systems f;
 
+      # nixpkgs settings shared across hosts
+      pkgsModule = {
+        nixpkgs = {
+          config.allowUnfree = true;
+          overlays = [ self.overlays.default ];
+        };
+      };
+    in
+    {
+      # Allows other repos to consure this flake as an input and use the modules/dex options
+      # defined in this repo
+      overlays.default = import ./overlays { inherit inputs; };
+      nixosModules.default = import ./modules/nixos;
+      homeManagerModules.default = import ./modules/home;
+
+      # NixOS hosts/configs
       nixosConfigurations = {
+
+        # Main PC
+        # sudo nixos-rebuild switch --flake .#lotad
         lotad = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = [
-            ({
-              nixpkgs = {
-                config = {
-                  allowUnfree = true;
-                  allowUnfreePredicate = true;
-                };
-                # Add overlays.nix file
-                overlays = [
-                  # Use nixpkgs from your environment, nixpkgs.config will apply.
-                  # Has small chance of kernel modules not being compatible with kernel version.
-                  nix-cachyos-kernel.overlays.default
-
-                ];
-
-              };
-            })
+            pkgsModule
             ./hosts/lotad
-            inputs.home-manager.nixosModules.default
+          ];
+        };
+
+        # Laptop
+        # sudo nixos-rebuild switch --flake .#poliwrath
+        poliwrath = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = [
+            pkgsModule
+            ./hosts/poliwrath
           ];
         };
       };
+
+      # legacyPackages: a nixpkgs instance per system with our overlay + allowUnfree already applied.
+      # `nix build .#<pkgs>` / `nix shell` and downstream repos can use it
+      # Not consumed by host configs above
+      legacyPackages = forAllSystems (
+        system:
+        import nixpkgs {
+          inherit system;
+          overlays = [ self.overlays.default ];
+          config.allowUnfree = true;
+        }
+      );
+
+      # `nix fmt` formats the whole tree with nixfmt
+      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
+
     };
 }
