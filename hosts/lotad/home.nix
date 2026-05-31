@@ -9,6 +9,7 @@
   # dex like pokedex
   dex = {
     discord.enable = true;
+    terminator.enable = true;
   };
 
   home.username = "ntrinite";

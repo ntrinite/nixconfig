@@ -19,6 +19,7 @@
       nixpkgs,
       home-manager,
       nix-cachyos-kernel,
+      # nix-vscode-extensions,
       ...
     }@inputs:
     let
