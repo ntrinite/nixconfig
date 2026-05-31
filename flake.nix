@@ -1,56 +1,52 @@
 {
-  description = "NixOS Flake";
+  description = "Flakey Boi";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";   
- 
-    home-manager.url = "github:nix-community/home-manager/release-23.11";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # Hyprland, Learn to make a little more modular
-    hyprland.url = "github:hyprwm/Hyprland";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    # NOTE: breaks hyprland if you try to follow nixpkgs
-    #hyprland.inputs.nixpkgs.follows = "nixpkgs"; 
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+    # Do not override its nixpkgs input, otherwise there can be mismatch between patches and kernel version
   };
 
-  outputs = { self, nixpkgs, home-manager, hyprland, ... }@inputs:
-  let
-    system = "x86_64-linux"; 
- 
-    #can be used if we don't want to specify nixpkgs.lib everywhere in `in`
-    #lib = nixpkgs.lib;
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      nix-cachyos-kernel,
+      ...
+    }@inputs:
+    {
 
-    pkgs = import nixpkgs {
-      inherit system; # copies the system variable defined in the outer scope
-      # could also do system = system
+      nixosConfigurations = {
+        lotad = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = [
+            ({
+              nixpkgs = {
+                config = {
+                  allowUnfree = true;
+                  allowUnfreePredicate = true;
+                };
+                # Add overlays.nix file
+                overlays = [
+                  # Use nixpkgs from your environment, nixpkgs.config will apply.
+                  # Has small chance of kernel modules not being compatible with kernel version.
+                  nix-cachyos-kernel.overlays.default
 
-      config = {
-        # allows for programs/software that may have a payment option associated
-        allowUnfree = true;    
+                ];
+
+              };
+            })
+            ./hosts/lotad
+            inputs.home-manager.nixosModules.default
+          ];
+        };
       };
     };
-  
-  in {
-    # Allows us to store different configurations in the same flake and rebuild based on the configuration
-    nixosConfigurations = {
-      # hostname, Refernces the configuration.nix
-      # This configuration will look in there as well and use the info in there to configure nix
-      nixos = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {inherit inputs;};
-        modules = [
-          ./nixos/configuration.nix
-        ]; 
-      };
-    };
-    homeConfigurations = {
-      ntrinite = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs; # copies the pkgs = ... defined in the let
-        modules = [./home.nix];
-      };
-
-    };
-  
-  };
 }

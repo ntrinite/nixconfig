@@ -1,30 +1,24 @@
-{ config, pkgs, lib, inputs, ... }:
+# Edit this configuration file to define what should be installed on
+# your system.  Help is available in the configuration.nix(5) man page
+# and in the NixOS manual (accessible by running ‘nixos-help’).
+
+{ config, pkgs, inputs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
-  boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Enable flakes
-  nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
-    allowed-users = ["*"];
-  };
+  # Use latest kernel.
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  networking.hostName = "lotad"; # Define your hostname.
 
-  # Garbage collect once a week for builds older than 30 days
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 30d";
-  };
-
-  networking.hostName = "nixos"; # Define your hostname.
+  # networking.hostName = config.systemSettings.hostName; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -52,55 +46,25 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-# TODO: set up other modules for GNOME and Sway...eventually
   # Enable the X11 windowing system.
-#  services.xserver.enable = true;
+  # You can disable this if you're only using the Wayland session.
+  services.xserver.enable = true;
 
-  # Enable the GNOME Desktop Environment.
-   #services.xserver.displayManager.gdm = {
-    # enable  = true;
-   #};
-#   services.xserver.desktopManager.gnome.enable = true;
+  # Enable the KDE Plasma Desktop Environment.
+  # services.displayManager.sddm.enable = true;
+  # services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
-#  services.xserver = {
-#    layout = "us";
-#    xkbVariant = "";
-#  };
-
-# Sway test
-  #programs.sway.enable = true;
-  #security.polkit.enable = true; # Need for sway + homemanager
-  #hardware.opengl.enable = true; # When using QEMU KVM which I'm pretty sure I'm not, but just in case
-
-
-# TODO: See how much of this I can move to Home manager so I can keep things modular
-########### HYPRLAND ##############
-# Simple hyprland setup
-programs.hyprland = {
-  enable = true;
-  package = inputs.hyprland.packages."${pkgs.system}".hyprland;
-};
-hardware = {
-  opengl.enable = true;
-  
-  #Most wayland compositers need this
-  nvidia.modesetting.enable = true;
-};
-
-# TODO: learn more about desktop portals
-# Desktop portals - handles desktop program's interactions between each other, screen sharing, link opening, file opening, and more
-xdg.portal.enable = true;
-xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-
-############ HYPRLAND ###############
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "";
+  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -108,7 +72,7 @@ xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     alsa.support32Bit = true;
     pulse.enable = true;
     # If you want to use JACK applications, uncomment this
-    jack.enable = true;
+    #jack.enable = true;
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
@@ -121,46 +85,30 @@ xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ntrinite = {
     isNormalUser = true;
-    description = "me duh";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      firefox
+    description = "ntrinite";
+    extraGroups = [
+      "networkmanager"
+      "wheel"
     ];
   };
 
-  environment.shells = with pkgs; [ bash fish ];
-  users.defaultUserShell = pkgs.fish;
-  programs.fish.enable = true;
-  nixpkgs.config.allowUnfree = true;
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
+  # Install firefox.
+  programs.firefox.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-     vim
-     wget
-     git # can probably get rid of this since it's defined in home-manger
-     fish
-     discord # might not work well with wayland
- 
-    # TODO: Move these to Home manager
-    (pkgs.waybar.overrideAttrs (oldAttrs: {
-      mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true"];
-      })
-    )
-    pkgs.mako # notification daemon
-    libnotify #required for mako
-    kitty
-    networkmanagerapplet
-
-    # app launcher
-    rofi-wayland
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    git
+    vscode
+    nil
+    nixfmt
   ];
-
-# TODO: see if I can move this to the swaylock file or something incase I ever choose something else
-  # Allow swaylock to unlock the computer for us
-  security.pam.services.swaylock = {
-    text = "auth include login";
-  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -187,6 +135,6 @@ xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "25.11"; # Did you read the comment?
 
 }
