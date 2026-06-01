@@ -14,6 +14,9 @@
   dex.cachy.enable = true; # use CahcyOS kernel
   dex.kde.enable = true; # KDE Plasma DE
 
+  # Setting this here instead of home.nix because this will set my default shell as well
+  dex.fish.enable = true;
+
   home-manager.users.ntrinite = import ./home.nix;
 
 }

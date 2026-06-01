@@ -5,8 +5,23 @@
 {
   programs.home-manager.enable = true;
 
-  home.sessionVariables = {
-    EDITOR = "vim";
+  dex.terminator.enable = true;
+
+  home = {
+    sessionVariables = {
+      EDITOR = "vim";
+    };
+    shellAliases = {
+      cdgit = "cd ~/git";
+      gs = "git status";
+      l = "ls";
+      la = "ls -a";
+      ll = "ls -l";
+      lla = "ls -la";
+      submod = "git submodule update --init --recursive";
+      cdnix = "cd ~/.nix-cfg";
+      codenix = "code ~/.nix-cfg";
+    };
   };
 
   news.display = "silent";

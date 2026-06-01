@@ -9,10 +9,23 @@
   # dex like pokedex
   dex = {
     discord.enable = true;
-    terminator.enable = true;
   };
 
-  home.username = "ntrinite";
-  home.homeDirectory = "/home/ntrinite";
-  home.stateVersion = "25.11";
+  # xdg.terminal-exec = {
+  #   enable = true;
+  #   settings = {
+  #     default = [
+  #       "terminator.desktop"
+  #     ];
+  #   };
+  # };
+
+  home = {
+    username = "ntrinite";
+    homeDirectory = "/home/ntrinite";
+    stateVersion = "25.11";
+    sessionVariables = {
+      TERMINAL = "terminator";
+    };
+  };
 }
