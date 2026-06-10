@@ -27,9 +27,9 @@ in
           "git.autofetchPeriod" = 43200;
           "files.trimTrailingWhitespace" = true;
           "files.autoSave" = "afterDelay";
-          "editor.bracketpairColorization.enabled" = true;
+          "editor.bracketPairColorization.enabled" = true;
           "editor.guides.bracketPairs" = true;
-          "terminal.integrated.stickyScroll" = false;
+          "terminal.integrated.stickyScroll.enabled" = false;
           "files.associations" = {
             "*.py" = "python";
           };
@@ -149,7 +149,7 @@ in
 
           "gitlens.codeLens.enabled" = true;
           "gitlens.codeLens.authors.enabled" = false;
-          "gitlens.codeLens.recentChange.enabed" = false;
+          "gitlens.codeLens.recentChange.enabled" = false;
 
           "[markdown]" = {
             "editor.defaultFormatter" = "esbenp.prettier-vscode";
@@ -184,7 +184,7 @@ in
           "chat.agent.enabled" = false;
           "chat.disableAIFeatures" = true;
 
-          "extensions.ignoreReconmmendations" = true;
+          "extensions.ignoreRecommendations" = true;
 
           "protobuf.formatOnSave" = true;
           "protobuf.clangFormat.enabled" = true;
