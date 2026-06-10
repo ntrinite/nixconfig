@@ -11,6 +11,12 @@
 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
     # Do not override its nixpkgs input, otherwise there can be mismatch between patches and kernel version
+
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs =
@@ -19,7 +25,7 @@
       nixpkgs,
       home-manager,
       nix-cachyos-kernel,
-      # nix-vscode-extensions,
+      nix-vscode-extensions,
       ...
     }@inputs:
     let

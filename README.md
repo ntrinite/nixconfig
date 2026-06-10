@@ -5,20 +5,20 @@ Personal NixOS + home-manager cofngis
 ## Overview
 
 | Host        | Machine | OS    | Notes                                                                             |
-| ------------| ------- | ----- | --------------------------------------------------------------------------------- |
+| ----------- | ------- | ----- | --------------------------------------------------------------------------------- |
 | `lotad`     | Main PC | NixOS | Daily Driver, AMD graphics, Gaming focused                                        |
 | `poliwrath` | Laptop  | NixOS | Old, Chunky, Acer Predator laptop, kind of "on-the-go" but more for experimenting |
 
-Everything custom in this repo lives under the single options namespace of **`dex`**. 
-`dex` = `pokedex` 
-(e.g. `dex.kde.enable`, `dex.discord.package`)  
+Everything custom in this repo lives under the single options namespace of **`dex`**.
+`dex` = `pokedex`
+(e.g. `dex.kde.enable`, `dex.discord.package`)
 
 ## Layout
 
 ```text
 nixconfig/
-├─ flake.nix            #inputs + outputs. Each host configuration defined here 
-├─ overlays/ 
+├─ flake.nix            #inputs + outputs. Each host configuration defined here
+├─ overlays/
 │  └─ default.nix # single overlay Aggregator
 ├─ hosts/
 │  ├─ common/      # Shared config between hosts
@@ -30,9 +30,9 @@ nixconfig/
 │  │  ├─ configuration.nix           # specific system settings
 │  │  └─ hardware-configuration.nix  # specific hardware settings
 │  └─ poliwrath/      # Skeleton framework for laptop
-│     ├─ default.nix  
-│     └─ home.nix     
-├─ modules/   # reusable feature modules 
+│     ├─ default.nix
+│     └─ home.nix
+├─ modules/   # reusable feature modules
    ├─ nixos/  # system features
    └─ home/   # home-manager apps
 ```
@@ -58,17 +58,16 @@ create `modules/nixos/hyprland.nix` add `dex.hyprland.enable` and other configs,
 **Example: a new optional app (neovim):**
 create `modules/home/neovim.nix` add `dex.neovim.enable` and other configs, add it to `modules/home/default.nix`, then set `dex.neovim.enable = true;` on whichever host wants it
 
-> [!NOTE] 
+> [!NOTE]
 > Not ever app or settings are within home-manager. You can define the module using home manager but change settings within modules/nixos/ if the settings are nixos specific
-
 
 ## Overlays
 
 [`overlays/default.nix`](overlays/default.nix) is the aggregator for all overlays for the whole flake.
 In simple terms, an overlay is a function `final: prev: { ... }` that adds to or replaces packages in `pkgs`.
 
-- `final`: the finished package set *after* all overlays apply.
-- `prev`: the pacakge set *before this overlay* is applied
+- `final`: the finished package set _after_ all overlays apply.
+- `prev`: the pacakge set _before this overlay_ is applied
 
 ```nix
 # Aggregator for all overlays
@@ -76,7 +75,7 @@ In simple terms, an overlay is a function `final: prev: { ... }` that adds to or
 inputs.nixpkgs.lib.composeManyExtensions[
   # CahcyOS overlay, adds the cachyosKernels.linuxPackages-cachyos-XYZ to pkgs
   inputs.nix-cachyos-kernel.overlays.default
-  
+
   # other overlays here
   (final: prev: { })
 ]
@@ -103,7 +102,7 @@ Add it to the `overlays/default.nix`
 ```nix
 { inputs }:
 inputs.nixpkgs.lib.composeManyExtensions[
-  
+
   # other overlays here
 
   (import ./ htop.nix)
@@ -130,7 +129,7 @@ Add it to the `overlays/default.nix`
 ```nix
 { inputs }:
 inputs.nixpkgs.lib.composeManyExtensions[
-  
+
   # other overlays here
 
   (import ./my-package.nix)
@@ -143,7 +142,7 @@ inputs.nixpkgs.lib.composeManyExtensions[
 now you can add the package with `pkgs.my-package`
 
 > If an overlay need `inputs` (e.g to pull a package from another flake), write
-> the file as `inputs: final: prev { ... }` and import it as 
+> the file as `inputs: final: prev { ... }` and import it as
 > `(import ./my-overlay.nix inputs)`
 
 The order of the `imports` can affect `prev`. Each overlay sees the previous one
@@ -172,7 +171,7 @@ Ex: a linux system that can still use home manager
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-conf.url = "github:ntrinite/nixos-config";   
+    nix-conf.url = "github:ntrinite/nixos-config";
   };
   outputs = {nixpkgs, home-manager, nix-conf, ...}: {
     homeConfigurations."ntrinite@somewhere-else" =

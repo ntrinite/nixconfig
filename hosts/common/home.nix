@@ -5,7 +5,10 @@
 {
   programs.home-manager.enable = true;
 
-  dex.terminator.enable = true;
+  dex = {
+    terminator.enable = true;
+    vscode.enable = true;
+  };
 
   home = {
     sessionVariables = {
