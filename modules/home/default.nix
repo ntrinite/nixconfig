@@ -5,5 +5,6 @@
     ./terminator.nix
     ./fish.nix
     ./vscode.nix
+    ./direnv.nix
   ];
 }

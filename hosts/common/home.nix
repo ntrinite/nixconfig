@@ -8,6 +8,7 @@
   dex = {
     terminator.enable = true;
     vscode.enable = true;
+    direnv.enable = true;
   };
 
   home = {
