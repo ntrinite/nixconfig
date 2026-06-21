@@ -61,7 +61,8 @@
   programs.firefox.enable = true;
 
   environment.systemPackages = with pkgs; [
-    vscode
+    texliveFull
+    texstudio
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

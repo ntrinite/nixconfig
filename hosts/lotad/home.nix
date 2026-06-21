@@ -9,16 +9,12 @@
   # dex like pokedex
   dex = {
     discord.enable = true;
-  };
+    pokefetch = {
+      width = 30;
+      pokemonList = [ "lotad" ];
+    };
 
-  # xdg.terminal-exec = {
-  #   enable = true;
-  #   settings = {
-  #     default = [
-  #       "terminator.desktop"
-  #     ];
-  #   };
-  # };
+  };
 
   home = {
     username = "ntrinite";

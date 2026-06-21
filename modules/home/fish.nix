@@ -82,6 +82,11 @@ in
           };
         }
       ];
+      interactiveShellInit = ''
+        ${lib.optionalString config.dex.pokefetch.enable ''
+          pokefetch
+        ''}
+      '';
     };
 
   };

@@ -6,5 +6,8 @@
     ./fish.nix
     ./vscode.nix
     ./direnv.nix
+    ./vim.nix
+    ./flameshot.nix
+    ./pokefetch
   ];
 }

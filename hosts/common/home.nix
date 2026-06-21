@@ -1,7 +1,7 @@
 # Shared home-manager baseline applied to the user on every host ( via home-manager.sharedModules)
 # in hosts/commmon/nixos.nix
 #
-{ ... }:
+{ pkgs, ... }:
 {
   programs.home-manager.enable = true;
 
@@ -9,9 +9,22 @@
     terminator.enable = true;
     vscode.enable = true;
     direnv.enable = true;
+    vim.enable = true;
+    pokefetch.enable = true;
   };
 
   home = {
+    packages = with pkgs; [
+      htop
+      nil # nix language server
+      nixfmt # nix formatter
+      mcap-cli
+      vlc
+      tree
+      ffmpeg
+      curl
+      jq
+    ];
     sessionVariables = {
       EDITOR = "vim";
     };

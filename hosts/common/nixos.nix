@@ -46,10 +46,7 @@
 
   # Bare systemPackages without configurations rn
   environment.systemPackages = with pkgs; [
-    vim
     git
-    nil # nix language server
-    nixfmt # nix formatter
   ];
 
   # Home Manager

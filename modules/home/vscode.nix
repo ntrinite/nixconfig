@@ -218,6 +218,7 @@ in
           esbenp.prettier-vscode
           ms-python.mypy-type-checker
           yahyabatulu.vscode-markdown-alert
+          james-yu.latex-workshop
         ];
       };
 

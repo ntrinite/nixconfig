@@ -4,10 +4,10 @@ Personal NixOS + home-manager cofngis
 
 ## Overview
 
-| Host        | Machine | OS    | Notes                                                                             |
-| ----------- | ------- | ----- | --------------------------------------------------------------------------------- |
-| `lotad`     | Main PC | NixOS | Daily Driver, AMD graphics, Gaming focused                                        |
-| `poliwrath` | Laptop  | NixOS | Old, Chunky, Acer Predator laptop, kind of "on-the-go" but more for experimenting |
+| Host                             | Machine | OS    | Notes                                                                             |
+| -------------------------------- | ------- | ----- | --------------------------------------------------------------------------------- |
+| [`lotad`](hosts/lotad/README.md) | Main PC | NixOS | Daily Driver, AMD graphics, Gaming focused                                        |
+| `poliwrath` [NOT SETUP]          | Laptop  | NixOS | Old, Chunky, Acer Predator laptop, kind of "on-the-go" but more for experimenting |
 
 Everything custom in this repo lives under the single options namespace of **`dex`**.
 `dex` = `pokedex`
