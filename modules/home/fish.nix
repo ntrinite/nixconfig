@@ -30,7 +30,10 @@ in
         nd = "nix develop";
         nb = "nix build";
         nfu = "nix flake update";
-        nfl = "nix flake lock --update-input";
+        # I don't _really_ need to swtich all the time but it's kind of quick
+        # to just type boot or test, I guess I could make a func so I can also pass config name in
+        # but bleh, I'll do it if I get annoyed
+        nr = "sudo nixos-rebuild switch --flake .#";
       };
       functions = {
         deg2rad = {
