@@ -4,10 +4,10 @@ Personal NixOS + home-manager cofngis
 
 ## Overview
 
-| Host                             | Machine | OS    | Notes                                                                             |
-| -------------------------------- | ------- | ----- | --------------------------------------------------------------------------------- |
-| [`lotad`](hosts/lotad/README.md) | Main PC | NixOS | Daily Driver, AMD graphics, Gaming focused                                        |
-| `poliwrath` [NOT SETUP]          | Laptop  | NixOS | Old, Chunky, Acer Predator laptop, kind of "on-the-go" but more for experimenting |
+| Host                                   | Machine | OS    | Notes                                                                             |
+| -------------------------------------- | ------- | ----- | --------------------------------------------------------------------------------- |
+| [`lotad`](hosts/lotad/README.md)       | Main PC | NixOS | Daily Driver, AMD graphics, Gaming focused                                        |
+| [`politoed`](hosts/politoed/README.md) | Laptop  | NixOS | Old, Chunky, Acer Predator laptop, kind of "on-the-go" but more for experimenting |
 
 Everything custom in this repo lives under the single options namespace of **`dex`**.
 `dex` = `pokedex`
@@ -29,7 +29,7 @@ nixconfig/
 │  │  ├─ home.nix                    # specific home manager settings/apps
 │  │  ├─ configuration.nix           # specific system settings
 │  │  └─ hardware-configuration.nix  # specific hardware settings
-│  └─ poliwrath/      # Skeleton framework for laptop
+│  └─ politoed/      # Skeleton framework for laptop
 │     ├─ default.nix
 │     └─ home.nix
 ├─ modules/   # reusable feature modules
@@ -191,6 +191,6 @@ Ex: a linux system that can still use home manager
 
 ```
 
-## TODO List:
+## TODO List
 
 - [ ] Update to Flake parts

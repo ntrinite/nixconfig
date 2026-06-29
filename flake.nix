@@ -62,12 +62,12 @@
         };
 
         # Laptop
-        # sudo nixos-rebuild switch --flake .#poliwrath
-        poliwrath = nixpkgs.lib.nixosSystem {
+        # sudo nixos-rebuild switch --flake .#politoed
+        politoed = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = [
             pkgsModule
-            ./hosts/poliwrath
+            ./hosts/politoed
           ];
         };
       };
