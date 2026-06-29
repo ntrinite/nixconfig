@@ -1,6 +1,6 @@
 # NixOS Configs
 
-Personal NixOS + home-manager cofngis
+Personal NixOS + home-manager configs
 
 ## Overview
 
@@ -29,10 +29,12 @@ nixconfig/
 │  │  ├─ home.nix                    # specific home manager settings/apps
 │  │  ├─ configuration.nix           # specific system settings
 │  │  └─ hardware-configuration.nix  # specific hardware settings
-│  └─ politoed/      # Skeleton framework for laptop
-│     ├─ default.nix
-│     └─ home.nix
-├─ modules/   # reusable feature modules
+│  └─ politoed/   # Laptop
+│  │  ├─ default.nix
+│  │  ├─ home.nix
+│  │  ├─ configuration.nix           # specific system settings
+│  │  └─ hardware-configuration.nix  # specific hardware settings
+└─ modules/   # reusable feature modules
    ├─ nixos/  # system features
    └─ home/   # home-manager apps
 ```
@@ -193,4 +195,5 @@ Ex: a linux system that can still use home manager
 
 ## TODO List
 
+- [ ] Clean up cofiguration.nix for PC and laptop
 - [ ] Update to Flake parts
