@@ -24,6 +24,7 @@
       ffmpeg
       curl
       jq
+      spotify
     ];
     sessionVariables = {
       EDITOR = "vim";
