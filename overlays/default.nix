@@ -2,7 +2,7 @@
 { inputs }:
 inputs.nixpkgs.lib.composeManyExtensions [
   # CahcyOS overlay, adds the cachyosKernels.linuxPackages-cachyos-XYZ to pkgs
-  inputs.nix-cachyos-kernel.overlays.default
+  inputs.nix-cachyos-kernel.overlays.pinned
   inputs.nix-vscode-extensions.overlays.default
 
   # other overlays here
