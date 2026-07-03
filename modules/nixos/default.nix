@@ -4,5 +4,6 @@
     ./kde.nix
     ./cachyos.nix
     ./fish.nix
+    ./steam.nix
   ];
 }
