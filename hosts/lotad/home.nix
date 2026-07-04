@@ -9,6 +9,7 @@
   # dex like pokedex
   dex = {
     discord.enable = true;
+    gimp.enable = true;
     pokefetch = {
       width = 30;
       pokemonList = [ "lotad" ];

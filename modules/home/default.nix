@@ -9,5 +9,6 @@
     ./vim.nix
     ./flameshot.nix
     ./pokefetch
+    ./gimp.nix
   ];
 }
