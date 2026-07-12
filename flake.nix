@@ -17,6 +17,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # TODO: change this to master of the original nixos-hardware if this
+    # ever gets merged in
+    nixos-hardware = {
+      url = "github:ntrinite/nixos-hardware/acer-predator-helios-300-g3-571";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs =
@@ -26,6 +33,7 @@
       home-manager,
       nix-cachyos-kernel,
       nix-vscode-extensions,
+      nixos-hardware,
       ...
     }@inputs:
     let
@@ -67,6 +75,7 @@
           specialArgs = { inherit inputs; };
           modules = [
             pkgsModule
+            nixos-hardware.nixosModules.acer-predator-helios-300-g3-571
             ./hosts/politoed
           ];
         };

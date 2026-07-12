@@ -54,7 +54,9 @@
         # in later on. Defaults to 'true'.
         AutoEnable = true;
       };
-            LE = { EnableAdvMonInterleaveScan = "true"; };
+      LE = {
+        EnableAdvMonInterleaveScan = "true";
+      };
     };
   };
 

@@ -129,6 +129,27 @@
         "type": "github"
       }
     },
+    "nixos-hardware": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1783890585,
+        "narHash": "sha256-PlMzQA0WrWAaIMVAx2vYksTTc/PFw3/bNWyoBaV/Tqw=",
+        "owner": "ntrinite",
+        "repo": "nixos-hardware",
+        "rev": "fa665adecdbed38a731d588801fc96d9f5d1b9d4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ntrinite",
+        "ref": "acer-predator-helios-300-g3-571",
+        "repo": "nixos-hardware",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1782378976,
@@ -181,6 +202,7 @@
         "home-manager": "home-manager",
         "nix-cachyos-kernel": "nix-cachyos-kernel",
         "nix-vscode-extensions": "nix-vscode-extensions",
+        "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2"
       }
     }
