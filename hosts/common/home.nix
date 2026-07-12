@@ -25,6 +25,7 @@
       curl
       jq
       spotify
+      obsidian
     ];
     sessionVariables = {
       EDITOR = "vim";
