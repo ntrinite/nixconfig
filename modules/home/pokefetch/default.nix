@@ -106,6 +106,8 @@ in
 
   config = mkIf cfg.enable {
     home.packages = [
+      pkgs.fastfetch
+      pkgs.pokeget-rs
       pokefetchScript
     ];
   };
