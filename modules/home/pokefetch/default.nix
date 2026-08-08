@@ -33,6 +33,7 @@ let
       "SC2154"
       "SC2206"
     ];
+    # TODO: go ahead and remove FETCHER and just use fast fetch
     text = ''
       POKEMON_LIST=(${
         lib.concatMapStringsSep "\n" (p: " ${lib.escapeShellArg p}") (

@@ -38,4 +38,4 @@ pad_Right=$((pad_Right + EXTRA_PADDING_W))
 (( pad_Right < 0 )) && pad_Right=0
 
 # this may not work for your fetcher, check them all
-echo "$sprite" | $FETCHER --file-raw - --logo-padding-top $pad_top --logo-padding-left $pad_Left --logo-padding-right $pad_Right
+echo "$sprite" | $FETCHER --file-raw - --logo-padding-top $pad_top --logo-padding-left $pad_Left --logo-padding-right $pad_Right --structure Title:Separator:OS:Host:Kernel:Shell:Display:DE:WM:Font:Terminal:TerminalFont:CPU:GPU:Memory:Disk:Battery:PowerAdapter:Locale:Break:Colors
