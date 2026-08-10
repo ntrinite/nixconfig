@@ -11,7 +11,7 @@
 
   # Enable specifics from modules/nixos
   # dex like pokedex
-  dex.kde.enable = true; # KDE Plasma DE
+  dex.cosmic.enable = true; # KDE Plasma DE
 
   # Setting this here instead of home.nix because this will set my default shell as well
   dex.fish.enable = true;
