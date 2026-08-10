@@ -15,7 +15,7 @@
     enable32Bit = true;
   };
 
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
