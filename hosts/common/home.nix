@@ -1,13 +1,26 @@
 # Shared home-manager baseline applied to the user on every host ( via home-manager.sharedModules)
 # in hosts/commmon/nixos.nix
 #
-{ pkgs, ... }:
+{ pkgs, config, ... }:
+let
+  vscode_version = (pkgs.forVSCodeVersion config.dex.vscode.package.version);
+in
 {
   programs.home-manager.enable = true;
 
   dex = {
     terminator.enable = true;
-    vscode.enable = true;
+    vscode = {
+      enable = true;
+      extraExtensions = with vscode_version.vscode-marketplace; [
+        james-yu.latex-workshop
+        charliermarsh.ruff
+      ];
+      extraSettings = {
+        "protobuf.formatOnSave" = true;
+        "protobuf.clangFormat.enabled" = true;
+      };
+    };
     direnv.enable = true;
     vim.enable = true;
     pokefetch.enable = true;

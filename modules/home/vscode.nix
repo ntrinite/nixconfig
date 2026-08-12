@@ -7,19 +7,32 @@
 
 let
   cfg = config.dex.vscode;
-  inherit (lib.options) mkEnableOption;
+  inherit (lib.options) mkEnableOption mkOption;
   inherit (lib) mkIf;
-  vscode_version = (pkgs.forVSCodeVersion pkgs.vscode.version);
+  inherit (lib.types) attrs listOf package;
+  vscode_version = (pkgs.forVSCodeVersion cfg.package.version);
 in
 {
   options.dex.vscode = {
-    enable = mkEnableOption "Enabel VSCode";
+    enable = mkEnableOption "Enable VSCode";
+    package = mkOption {
+      type = package;
+      default = pkgs.vscode;
+    };
+    extraSettings = mkOption {
+      type = attrs;
+      default = { };
+    };
+    extraExtensions = mkOption {
+      type = listOf package;
+      default = [ ];
+    };
   };
 
   config = mkIf cfg.enable {
     programs.vscode = {
       enable = true;
-      package = pkgs.vscode;
+      package = cfg.package;
       mutableExtensionsDir = true;
       profiles.default = {
         userSettings = {
@@ -42,6 +55,7 @@ in
           "todo-tree.general.tags" = [
             "BUG"
             "HACK"
+            "FIXME"
             "TODO"
             "XXX"
             "[ ]"
@@ -71,7 +85,7 @@ in
             {
               "tag" = "/X";
               "color" = "#474747";
-              "strikethrough" = false;
+              "strikethrough" = true;
               "underline" = false;
               "backgroundColor" = "transparent";
               "bold" = false;
@@ -147,10 +161,6 @@ in
             };
           };
 
-          "gitlens.codeLens.enabled" = true;
-          "gitlens.codeLens.authors.enabled" = false;
-          "gitlens.codeLens.recentChange.enabled" = false;
-
           "[markdown]" = {
             "editor.defaultFormatter" = "esbenp.prettier-vscode";
           };
@@ -185,41 +195,38 @@ in
           "chat.disableAIFeatures" = true;
 
           "extensions.ignoreRecommendations" = true;
-
-          "protobuf.formatOnSave" = true;
-          "protobuf.clangFormat.enabled" = true;
-        };
-        extensions = with vscode_version.vscode-marketplace; [
-          ms-python.python
-          ms-python.vscode-pylance
-          charliermarsh.ruff
-          llvm-vs-code-extensions.vscode-clangd
-          mkhl.direnv
-          oderwat.indent-rainbow
-          jnoortheen.nix-ide
-          ms-vscode-remote.remote-ssh
-          mhutchie.git-graph
-          eamodio.gitlens
-          tamasfe.even-better-toml
-          ms-vscode.cmake-tools
-          twxs.cmake
-          davidanson.vscode-markdownlint
-          mechatroner.rainbow-csv
-          drblury.protobuf-vsc
-          pkief.material-icon-theme
-          gruntfuggly.todo-tree
-          ms-azuretools.vscode-docker
-          gsgualbano.baby-panda
-          cschlosser.doxdocgen
-          aaron-bond.better-comments
-          randomfractalsinc.geo-data-viewer
-          rust-lang.rust-analyzer
-          bierner.markdown-mermaid
-          esbenp.prettier-vscode
-          ms-python.mypy-type-checker
-          yahyabatulu.vscode-markdown-alert
-          james-yu.latex-workshop
-        ];
+        }
+        // cfg.extraSettings;
+        extensions =
+          (with vscode_version.vscode-marketplace; [
+            ms-python.python
+            ms-python.vscode-pylance
+            llvm-vs-code-extensions.vscode-clangd
+            mkhl.direnv
+            oderwat.indent-rainbow
+            jnoortheen.nix-ide
+            ms-vscode-remote.remote-ssh
+            mhutchie.git-graph
+            tamasfe.even-better-toml
+            ms-vscode.cmake-tools
+            twxs.cmake
+            davidanson.vscode-markdownlint
+            mechatroner.rainbow-csv
+            drblury.protobuf-vsc
+            pkief.material-icon-theme
+            gruntfuggly.todo-tree
+            ms-azuretools.vscode-docker
+            gsgualbano.baby-panda
+            cschlosser.doxdocgen
+            aaron-bond.better-comments
+            randomfractalsinc.geo-data-viewer
+            rust-lang.rust-analyzer
+            bierner.markdown-mermaid
+            esbenp.prettier-vscode
+            ms-python.mypy-type-checker
+            yahyabatulu.vscode-markdown-alert
+          ])
+          ++ cfg.extraExtensions;
       };
 
     };
