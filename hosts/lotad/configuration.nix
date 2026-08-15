@@ -57,12 +57,15 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  services.ratbagd.enable = true;
+
   # Install firefox.
   programs.firefox.enable = true;
 
   environment.systemPackages = with pkgs; [
     texliveFull
     texstudio
+    piper
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
