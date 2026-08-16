@@ -14,7 +14,7 @@
   dex = {
     cachy.enable = true; # use CahcyOS kernel
     steam.enable = true;
-    kde.enable = true; # KDE Plasma DE
+    cosmic.enable = true;
 
     # Setting this here instead of home.nix because this will set my default shell as well
     fish.enable = true;
