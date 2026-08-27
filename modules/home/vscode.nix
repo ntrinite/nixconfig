@@ -195,6 +195,7 @@ in
           "chat.disableAIFeatures" = true;
 
           "extensions.ignoreRecommendations" = true;
+          "workbench.browser.autoReloadOnFileChange" = true;
         }
         // cfg.extraSettings;
         extensions =

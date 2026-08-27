@@ -72,15 +72,11 @@ in
       plugins = [
         {
           # Makes fish work better in nix environments,
-          # NOTE: kidonng did this originally but there is a PR (https://github.com/kidonng/nix.fish/pull/2)
-          # that has a small fix that hasn't been touched in a while
           name = "nix.fish";
           src = pkgs.fetchFromGitHub {
-            #owner = "kidonng";
-            owner = "Animeshz";
+            owner = "kidonng";
             repo = "nix.fish";
-            # rev = "ad57d970841ae4a24521b5b1a68121cf385ba71e";
-            rev = "a3256cf49846ee4de072c3a9af7a58aad4021693";
+            rev = "97cdebb171b2348ad166b0d7db7295a1c0c93873";
             hash = "sha256-3M0dU30SrdjInp6MWEC0q7MTInrZNtY6Z9mhBw43PKs=";
           };
         }
