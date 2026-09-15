@@ -39,6 +39,7 @@ in
       jq
       spotify
       obsidian
+      obs-studio
     ];
     sessionVariables = {
       EDITOR = "vim";
