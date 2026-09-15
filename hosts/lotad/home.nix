@@ -3,7 +3,7 @@
 # Shared HM config (hosts/common/home.nix) and modules defined in modules/home/
 # are already imported via sharedModules
 # This allows us to define per host app configurations, toggles, etc.
-{ ... }:
+{ pkgs, config, ... }:
 
 {
   # dex like pokedex
@@ -24,5 +24,8 @@
     sessionVariables = {
       TERMINAL = "terminator";
     };
+    packages = with pkgs; [
+      devenv
+    ];
   };
 }

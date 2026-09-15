@@ -163,6 +163,7 @@ in
 
           "[markdown]" = {
             "editor.defaultFormatter" = "esbenp.prettier-vscode";
+            "editor.wordWrap" = "off";
           };
 
           "[python]" = {
@@ -226,6 +227,7 @@ in
             esbenp.prettier-vscode
             ms-python.mypy-type-checker
             yahyabatulu.vscode-markdown-alert
+            bbenoist.qml
           ])
           ++ cfg.extraExtensions;
       };
