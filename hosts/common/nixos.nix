@@ -60,6 +60,9 @@
     };
   };
 
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
+
   # Just have the same user across all machines for now
   # Will change when needing multi-users or a different user all together
   users.users.ntrinite = {
@@ -70,6 +73,8 @@
       "wheel"
     ];
   };
+
+  programs.firefox.enable = true;
 
   # Bare systemPackages without configurations rn
   environment.systemPackages = with pkgs; [
