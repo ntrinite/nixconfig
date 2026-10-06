@@ -174,6 +174,8 @@ in
             };
           };
 
+          "qt-qml.qmlls.useQmlImportPathEnvVar" = true;
+
           "mypy-type-checker.args" = [
             "--disallow-untyped-defs"
             "--explicit-package-bases"
@@ -227,7 +229,7 @@ in
             esbenp.prettier-vscode
             ms-python.mypy-type-checker
             yahyabatulu.vscode-markdown-alert
-            bbenoist.qml
+            theqtcompany.qt-qml
           ])
           ++ cfg.extraExtensions;
       };
