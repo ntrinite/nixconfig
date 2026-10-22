@@ -197,6 +197,8 @@ in
           "chat.agent.enabled" = false;
           "chat.disableAIFeatures" = true;
 
+          "extensions.autoUpdate" = "off";
+
           "extensions.ignoreRecommendations" = true;
           "workbench.browser.autoReloadOnFileChange" = true;
         }
